@@ -6,17 +6,18 @@
        name: docker.io
        state: present
        update_cache: true
-
-   - name: Pull Docker image
-     docker_image:
-       name: jenkins/jenkins
-       source: pull
+   
+   - name: Build image
+     community.docker.docker_image_build:
+       name: dockerfile
+       path: /Users/federico/desktop/vagrantm1/formazione_sou_k8s/JenkinsDocker
+       dockerfile: dockerfile
 
    - name: Create container
      docker_container:
        name: container
        state: started
-       image: jenkins/jenkins
+       image: dockerfile
        ports:
         - "8080:8080"
         - "50000:50000"
