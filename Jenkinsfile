@@ -12,7 +12,7 @@ pipeline {
           } else if (env.BRANCH_NAME == 'develop') {
             sh 'docker build -t federicopao/formazione_sou_k8s:prova .'
           } else {
-            sh 'docker build -t federicopao/formazione_sou_k8s .'
+            sh 'docker build -t federicopao/formazione_sou_k8s:test .'
           }
         }
       }
@@ -34,7 +34,7 @@ pipeline {
           } else {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
               sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-              sh 'docker push federicopao/formazione_sou_k8s'
+              sh 'docker push federicopao/formazione_sou_k8s:test'
             }
           }
         }
