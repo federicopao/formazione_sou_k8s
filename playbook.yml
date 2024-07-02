@@ -7,11 +7,37 @@
        state: present
        update_cache: true
    
-   - name: Build image
-     community.docker.docker_image_build:
+   - name: "Copy image in VM for build"
+     ansible.builtin.template:
+       src: /Users/federico/desktop/vagrantm1/formazione_sou_k8s/JenkinsDocker/Dockerfile
+       dest: ./
+       owner: vagrant
+       group: vagrant
+       mode: "0740"
+
+   - name: "Copy plugins in VM for Jcasc"
+     ansible.builtin.template:
+       src: /Users/federico/desktop/vagrantm1/formazione_sou_k8s/plugins.txt
+       dest: ./
+       owner: vagrant
+       group: vagrant
+       mode: "0740"
+
+   - name: "Copy configuration yaml in VM for Jcasc"
+     ansible.builtin.template:
+       src: /Users/federico/desktop/vagrantm1/formazione_sou_k8s/jenkins-configuration.yaml
+       dest: ./
+       owner: vagrant
+       group: vagrant
+       mode: "0740"
+
+   - name: "Build image"
+     docker_image:
        name: dockerfile
-       path: /Users/federico/desktop/vagrantm1/formazione_sou_k8s/JenkinsDocker
-       dockerfile: dockerfile
+       source: build
+       build:
+         path: ./
+         dockerfile: Dockerfile
 
    - name: Create container
      docker_container:
@@ -24,7 +50,9 @@
        volumes:
         - /var/run/docker.sock:/var/run/docker.sock
 
-
+   - name: Permission for docker socket
+     ansible.builtin.shell:
+       cmd: sudo -i docker exec -it --user root container bash -c 'cd /var/run && chgrp docker docker.sock'
 
 
 
