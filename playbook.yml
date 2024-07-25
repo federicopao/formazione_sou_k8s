@@ -15,22 +15,6 @@
        group: vagrant
        mode: "0740"
 
-   - name: "Copy plugins in VM for Jcasc"
-     ansible.builtin.template:
-       src: /Users/federico/desktop/vagrantm1/formazione_sou_k8s/plugins.txt
-       dest: ./
-       owner: vagrant
-       group: vagrant
-       mode: "0740"
-
-   - name: "Copy configuration yaml in VM for Jcasc"
-     ansible.builtin.template:
-       src: /Users/federico/desktop/vagrantm1/formazione_sou_k8s/jenkins-configuration.yaml
-       dest: ./
-       owner: vagrant
-       group: vagrant
-       mode: "0740"
-
    - name: "Build image"
      docker_image:
        name: dockerfile
