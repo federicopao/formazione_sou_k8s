@@ -50,7 +50,7 @@ La pipeline Jenkins deve chiamarsi flask-app-example-build. Il tag dell'immagine
 7. Inserendo l'ip del vm e la porta 8080 nel browser possiamo connetterci alla dashboard di Jenkins in modo da poter definire la
    pipeline. Inserisco le credenziali di dockerhub in Jenkins tramite la dashboard, creo un job di tipo "pipeline multibranch"
    (ci permette di lavorare con repo di git multibranch, ogni branch o tag deve contenere un Jenkinsfile) e gli passo la repository
-   di git per passargli la pipeline nel Jenkinsfile
+   di git per passargli la pipeline nel Jenkinsfile (la repository di git come richiesto da esercizio avrà un branch main, un branch develop e un tag versionato)
 8. La pipeline deve effettuare 3 operazioni:
    - buildare l'immagine con flask
      ```
