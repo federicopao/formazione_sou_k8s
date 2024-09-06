@@ -1,10 +1,11 @@
-FROM --platform=$BUILDPLATFORM python:3.8-slim-buster
-
+FROM python:3.8
+ 
+RUN pip install flask
+ 
+COPY . /app
+ 
 WORKDIR /app
-#install flask
-RUN pip3 install flask
-#copy app.py in the docker image
-COPY ./app.py /app
-#run app.py
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+ 
+EXPOSE 8080
+ 
+CMD ["python", "helloworld.py"]
